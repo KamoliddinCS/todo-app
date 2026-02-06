@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login Successful</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+</head>
+<body>
+  <div class="login-card">
+    <h1>✅ Success!</h1>
+    <p>You have logged in successfully.</p>
+    <p>Your credentials are:</p>
+    <p>Email: {{ email }}</p>
+    <p>Password: {{ password }}</p>
+
+
+    <div style="margin-top: 24px;">
+      <a href="todo.html">
+        <button>Go to Dashboard</button>
+      </a>
+    </div>
+
+    <div class="footer">
+      <span>Ready to get things done?</span>
+    </div>
+  </div>
+</body>
+</html>

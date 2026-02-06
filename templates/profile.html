@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>My Profile</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+</head>
+<body>
+  <div class="profile-card">
+    <div class="profile-header">
+      <!-- Profile Picture -->
+      <div class="avatar-wrapper">
+        <img
+          src="{{ url_for('static', filename=image) }}"
+          alt="Profile Picture"
+          class="avatar-img"
+          id="profileImage"
+        />
+        <div class="avatar-placeholder" id="avatarPlaceholder">{{ email }}</div>
+
+        <form method="post" id="form" enctype="multipart/form-data">
+          <label for="avatarUpload" class="avatar-edit">✏️</label>
+          <input
+            type="file"
+            id="avatarUpload"
+            accept="image/*"
+            name="avatar"
+            hidden
+          />
+          <p><span id="updateStatus"></span></p>
+        </form>
+      </div>
+
+      <h1>Name Surname</h1>
+      <p>{{ email }}</p>
+    </div>
+
+    <div class="profile-info">
+      <div class="info-row">
+        <span class="label">Username</span>
+        <span class="value">johndoe</span>
+      </div>
+      <div class="info-row">
+        <span class="label">Member since</span>
+        <span class="value">Jan 2026</span>
+      </div>
+    </div>
+
+    <div class="profile-actions">
+      <button form="form" type="submit" id="submit">Edit Profile</button>
+      <a class="login-btn" href="{{ url_for('home') }}">Home page</a>
+    </div>
+  </div>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

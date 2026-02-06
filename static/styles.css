@@ -1,0 +1,469 @@
+/* =====================
+   Global Reset & Base
+===================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+/* =====================
+   Shared Elements
+===================== */
+input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 16px; /* better mobile readability */
+}
+
+input:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+button {
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  background: #667eea;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #5a67d8;
+}
+
+.login-btn {
+  border: none;
+  border-radius: 5px;
+  background: #667eea;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 10px 20px;
+  text-decoration: none;
+}
+
+/* =====================
+   Login Page Styles
+===================== */
+.login-card {
+  background: #ffffff;
+  width: 100%;
+  max-width: 380px;
+  padding: 24px;
+  border-radius: 18px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.login-card h1 {
+  text-align: center;
+  margin-bottom: 6px;
+  color: #333;
+  font-size: 24px;
+}
+
+.login-card p {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #777;
+  font-size: 14px;
+}
+
+.input-group {
+  margin-bottom: 18px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 13px;
+  color: #555;
+}
+
+.login-card button {
+  width: 100%;
+  margin-top: 6px;
+}
+
+.footer {
+  margin-top: 18px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.footer span {
+  color: #777;
+}
+
+.footer a {
+  color: #667eea;
+  text-decoration: none;
+  margin-left: 4px;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+/* =====================
+   Todo App Styles
+===================== */
+.app {
+  background: #ffffff;
+  width: 100%;
+  max-width: 380px;
+  padding: 22px;
+  border-radius: 18px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.app h1 {
+  text-align: center;
+  margin-bottom: 18px;
+  color: #333;
+  font-size: 24px;
+}
+
+.todo-input {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.todo-input input {
+  flex: 1;
+}
+
+.todo-input button {
+  padding: 12px 14px;
+  font-size: 14px;
+}
+
+.todo-list {
+  list-style: none;
+}
+
+.todo-list li {
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: #f7f7f7;
+  margin-bottom: 12px;
+  transition: background 0.2s;
+}
+
+.todo-list li:hover {
+  background: #eeeeee;
+}
+
+.todo-list label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.todo-list input[type="checkbox"] {
+  accent-color: #667eea;
+  width: 18px;
+  height: 18px;
+}
+
+.todo-list li.completed span {
+  text-decoration: line-through;
+  color: #999;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 20px;
+}
+
+
+/* PROFILE */
+
+.avatar-img {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.profile-card {
+  background: #ffffff;
+  width: 100%;
+  max-width: 420px;
+  padding: 26px;
+  border-radius: 20px;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.22);
+}
+
+/* Header */
+.profile-header {
+  text-align: center;
+  margin-bottom: 26px;
+}
+
+.profile-header h1 {
+  margin-top: 14px;
+  font-size: 22px;
+  color: #333;
+}
+
+.profile-header p {
+  margin-top: 4px;
+  font-size: 14px;
+  color: #777;
+}
+
+/* Info section */
+.profile-info {
+  background: #f8f9fc;
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin-bottom: 22px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  font-size: 14px;
+}
+
+.info-row:not(:last-child) {
+  border-bottom: 1px solid #e6e8f0;
+}
+
+.label {
+  color: #777;
+}
+
+.value {
+  color: #333;
+  font-weight: 500;
+}
+
+/* Actions */
+.profile-actions {
+  display: flex;
+  gap: 12px;
+}
+
+/* Secondary button */
+.profile-actions .secondary {
+  background: #f1f2f6;
+  color: #333;
+}
+
+.profile-actions .secondary:hover {
+  background: #e5e7ee;
+}
+
+
+
+
+/* =====================
+   404 Error Page
+===================== */
+.error-card {
+  background: #ffffff;
+  width: 100%;
+  max-width: 420px;
+  padding: 32px 26px;
+  border-radius: 22px;
+  text-align: center;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.22);
+}
+
+.error-card h1 {
+  font-size: 72px;
+  color: #667eea;
+  margin-bottom: 6px;
+}
+
+.error-card h2 {
+  font-size: 22px;
+  color: #333;
+  margin-bottom: 14px;
+}
+
+.error-card p {
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 26px;
+}
+
+.error-card button {
+  padding: 14px 18px;
+}
+
+
+/* =====================
+   Flashed messages
+===================== */
+.messages {
+    opacity: 0.8;
+    border-radius: 13px;
+    background-color: #4abb4a;
+    border: 2px solid #079507;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.errors {
+    opacity: 0.8;
+    border-radius: 13px;
+    background-color: red;
+    border: 2px solid darkred;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.message {
+    color: #fefefe;
+    font-size: 1rem;
+    list-style: none;
+}
+
+
+
+
+
+/* =====================
+   Responsive Improvements
+===================== */
+
+/* Ensure cards never overflow small screens */
+.login-card,
+.app,
+.profile-card {
+  width: 100%;
+  max-width: 420px;
+}
+
+/* Improve touch spacing on mobile */
+button,
+input {
+  min-height: 44px; /* recommended touch size */
+}
+
+/* =====================
+   Tablet & Small Desktop
+===================== */
+@media (min-width: 600px) {
+  .login-card,
+  .app,
+  .profile-card {
+    padding: 28px;
+  }
+
+  h1 {
+    font-size: 26px;
+  }
+}
+
+/* =====================
+   Small Phones
+===================== */
+@media (max-width: 400px) {
+  body {
+    padding: 12px;
+  }
+
+  .login-card,
+  .app,
+  .profile-card {
+    padding: 18px;
+    border-radius: 14px;
+  }
+
+  h1 {
+    font-size: 22px;
+  }
+
+  p {
+    font-size: 13px;
+  }
+
+  button {
+    font-size: 15px;
+  }
+}
+
+/* =====================
+   Profile – Mobile Polish
+===================== */
+@media (max-width: 400px) {
+  .profile-card {
+    padding: 20px;
+    border-radius: 16px;
+  }
+
+  .profile-header h1 {
+    font-size: 20px;
+  }
+
+  .profile-actions {
+    flex-direction: column;
+  }
+
+  .profile-actions button {
+    width: 100%;
+  }
+}
+
+/* =====================
+   Todo App Specific
+===================== */
+@media (max-width: 400px) {
+  .todo-input {
+    flex-direction: column;
+  }
+
+  .todo-input button {
+    width: 100%;
+  }
+
+  .todo-list label {
+    font-size: 15px;
+  }
+}
+
+
+/* =====================
+   404 – Mobile Polish
+===================== */
+@media (max-width: 400px) {
+  .error-card {
+    padding: 24px 18px;
+    border-radius: 16px;
+  }
+
+  .error-card h1 {
+    font-size: 60px;
+  }
+
+  .error-card h2 {
+    font-size: 20px;
+  }
+}
+

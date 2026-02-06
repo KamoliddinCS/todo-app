@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Todo App</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  <div class="app">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+        <div class="{{ category }}">
+            <li class="message">{{ message }}</li>
+        </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    <div class="profile">
+      <a href="profile"><img src="{{ url_for('static', filename=avatar) }}" alt="" class="avatar-img"></a>
+      {% if user == None %}
+      <a href="{{ url_for('login') }}" class="login-btn">Login</a>
+      {% else %}
+      {{ user }}
+      {% endif %}
+    </div>
+    <h1>📝 My Todos</h1>
+
+    <div class="todo-input">
+      <input type="text" placeholder="Add a new task..." />
+      <button>Add</button>
+    </div>
+
+    <ul class="todo-list">
+      <li>
+        <label>
+          <input type="checkbox" />
+          <span>Finish homework</span>
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" />
+          <span>Go for a walk</span>
+        </label>
+      </li>
+      <li class="completed">
+        <label>
+          <input type="checkbox" checked />
+          <span>Buy groceries</span>
+        </label>
+      </li>
+    </ul>
+  </div>
+</body>
+</html>
