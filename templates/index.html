@@ -20,13 +20,17 @@
     <div class="profile">
       <a href="profile"><img src="{{ url_for('static', filename=avatar) }}" alt="" class="avatar-img"></a>
       {% if user == None %}
-      <a href="{{ url_for('login') }}" class="login-btn">Login</a>
+      <div class="authentication-btns">
+          <a href="{{ url_for('login') }}" class="login-btn">Login</a>
+        <a href="{{ url_for('signup') }}" class="signup-btn">Sign up</a>
+      </div>
       {% else %}
-      {{ user }}
+      @{{ user.username }}
       {% endif %}
     </div>
     <h1>📝 My Todos</h1>
 
+    {% if user != None %}
     <div class="todo-input">
       <input type="text" placeholder="Add a new task..." />
       <button>Add</button>
@@ -52,6 +56,10 @@
         </label>
       </li>
     </ul>
+    {% else %}
+    <p>Please, sign up or log in to start adding tasks.</p>
+    {% endif %}
+
   </div>
 </body>
 </html>
