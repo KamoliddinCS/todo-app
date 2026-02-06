@@ -12,24 +12,61 @@
     <p>Register to start getting shit done.</p>
 
     <form method="post">
+      {{ form.csrf_token }}
       <div class="input-group">
-        <label for="username">Username</label>
-        <input name="username" type="text" id="username" placeholder="j.epstein" required/>
+<!--        <label for="username">Username</label>-->
+<!--        <input name="username" type="text" id="username" placeholder="j.epstein" required/>-->
+        {{ form.username.label }}
+        {{ form.username }}
+        {% if form.username.errors %}
+        <ul class="errors">
+          {% for error in form.username.errors %}
+          <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
       </div>
 
       <div class="input-group">
-        <label for="email">Email</label>
-        <input name="email" type="email" id="email" placeholder="you@example.com" required/>
+<!--        <label for="email">Email</label>-->
+<!--        <input name="email" type="email" id="email" placeholder="you@example.com" required/>-->
+        {{ form.email.label }}
+        {{ form.email }}
+        {% if form.email.errors %}
+        <ul class="errors">
+          {% for error in form.email.errors %}
+          <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
       </div>
 
       <div class="input-group">
-        <label for="password">Password</label>
-        <input name="password" type="password" id="password" placeholder="••••••••" required/>
+<!--        <label for="password">Password</label>-->
+<!--        <input name="password" type="password" id="password" placeholder="••••••••" required/>-->
+        {{ form.password.label }}
+        {{ form.password }}
+        {% if form.password.errors %}
+        <ul class="errors">
+          {% for error in form.password.errors %}
+          <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
       </div>
 
       <div class="input-group">
-        <label for="re-password">Re-type Password</label>
-        <input name="re-password" type="password" id="re-password" placeholder="••••••••" required/>
+<!--        <label for="re-password">Re-type Password</label>-->
+<!--        <input name="re-password" type="password" id="re-password" placeholder="••••••••" required/>-->
+        {{ form.confirm.label }}
+        {{ form.confirm }}
+        {% if form.confirm.errors %}
+        <ul class="errors">
+          {% for error in form.confirm.errors %}
+          <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
       </div>
 
       {% with messages = get_flashed_messages(with_categories=true) %}

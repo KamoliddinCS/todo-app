@@ -354,13 +354,13 @@ button:hover {
 }
 
 .errors {
-    opacity: 0.8;
-    border-radius: 13px;
-    background-color: red;
-    border: 2px solid darkred;
-    padding: 20px;
-    margin-bottom: 20px;
+    margin: 10px 0;
+    list-style: none;
+    color: red;
+    font-size: 0.8rem;
 }
+
+
 
 .message {
     color: #fefefe;
