@@ -19,15 +19,18 @@
         <div class="avatar-placeholder" id="avatarPlaceholder">{{ email }}</div>
 
         <form method="post" id="form" enctype="multipart/form-data">
-          <label for="avatarUpload" class="avatar-edit">✏️</label>
-          <input
-            type="file"
-            id="avatarUpload"
-            accept="image/*"
-            name="avatar"
-            hidden
-          />
-          <p><span id="updateStatus"></span></p>
+          {{ form.csrf_token }}
+          {{ form.avatar.label(_class="avatar-edit") }}
+          {{ form.avatar(_id="avatarUpload") }}
+<!--          <label for="avatarUpload" class="avatar-edit">✏️</label>-->
+<!--          <input-->
+<!--            type="file"-->
+<!--            id="avatarUpload"-->
+<!--            accept="image/*"-->
+<!--            name="avatar"-->
+<!--            hidden-->
+<!--          />-->
+<!--          <p><span id="updateStatus"></span></p>-->
         </form>
       </div>
 
