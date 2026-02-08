@@ -119,6 +119,18 @@ button:hover {
   color: #555;
 }
 
+.remember-me {
+    display: flex;
+    align-items: center;
+    color: #555;
+    font-size: 13px;
+}
+
+input.remember-me-input {
+    width: 20px;
+    margin-left: 10px;
+}
+
 .login-card button {
   width: 100%;
   margin-top: 6px;
@@ -223,10 +235,15 @@ button:hover {
 
 /* PROFILE */
 
-.avatar-img {
-    border-radius: 50%;
+div.profile > a > img.avatar-img {
     width: 50px;
     height: 50px;
+}
+
+.avatar-img {
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
     object-fit: cover;
     object-position: center;
 }

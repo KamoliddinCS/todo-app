@@ -14,13 +14,11 @@
     <form method="post">
       {{ form.csrf_token }}
       <div class="input-group">
-<!--        <label for="email">Email</label>-->
-<!--        <input name="email" type="email" id="email" placeholder="you@example.com" value="{{ email }}"/>-->
-        {{ form.email.label }}
-        {{ form.email }}
-          {% if form.email.errors %}
+        {{ form.identifier.label }}
+        {{ form.identifier }}
+          {% if form.identifier.errors %}
           <ul class="errors">
-              {% for error in form.email.errors %}
+              {% for error in form.identifier.errors %}
               <li>{{ error }}</li>
               {% endfor %}
           </ul>
@@ -28,8 +26,6 @@
       </div>
 
       <div class="input-group">
-<!--        <label for="password">Password</label>-->
-<!--        <input name="password" type="password" id="password" placeholder="••••••••" />-->
         {{ form.password.label }}
         {{ form.password }}
           {% if form.password.errors %}
@@ -41,15 +37,20 @@
           {% endif %}
       </div>
 
-      {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-        {% for category, message in messages %}
-        <div class="{{ category }}">
-            <li class="message">{{ message }}</li>
-        </div>
-        {% endfor %}
-      {% endif %}
-    {% endwith %}
+      <div class="remember-me">
+        {{ form.remember_me.label }}
+        {{ form.remember_me(class_="remember-me-input") }}
+      </div>
+
+<!--      {% with messages = get_flashed_messages(with_categories=true) %}-->
+<!--      {% if messages %}-->
+<!--        {% for category, message in messages %}-->
+<!--        <div class="{{ category }}">-->
+<!--            <li class="message">{{ message }}</li>-->
+<!--        </div>-->
+<!--        {% endfor %}-->
+<!--      {% endif %}-->
+<!--    {% endwith %}-->
 
       <button type="submit">Login</button>
     </form>

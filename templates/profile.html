@@ -7,16 +7,25 @@
 </head>
 <body>
   <div class="profile-card">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+        <div class="{{ category }}">
+            <li class="message">{{ message }}</li>
+        </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
     <div class="profile-header">
       <!-- Profile Picture -->
       <div class="avatar-wrapper">
         <img
-          src="{{ url_for('static', filename=image) }}"
+          src="{{ url_for('static', filename=avatar) }}"
           alt="Profile Picture"
           class="avatar-img"
           id="profileImage"
         />
-        <div class="avatar-placeholder" id="avatarPlaceholder">{{ email }}</div>
+<!--        <div class="avatar-placeholder" id="avatarPlaceholder">{{ current_user.email }}</div>-->
 
         <form method="post" id="form" enctype="multipart/form-data">
           {{ form.csrf_token }}
@@ -34,19 +43,19 @@
         </form>
       </div>
 
-      <h1>Name Surname</h1>
-      <p>{{ email }}</p>
+      <h1>{{ current_user.username }}</h1>
+      <p>{{ current_user.email }}</p>
     </div>
 
     <div class="profile-info">
       <div class="info-row">
         <span class="label">Username</span>
-        <span class="value">johndoe</span>
+        <span class="value">{{ current_user.username }}</span>
       </div>
-      <div class="info-row">
-        <span class="label">Member since</span>
-        <span class="value">Jan 2026</span>
-      </div>
+<!--      <div class="info-row">-->
+<!--        <span class="label">Member since</span>-->
+<!--        <span class="value">Jan 2026</span>-->
+<!--      </div>-->
     </div>
 
     <div class="profile-actions">
