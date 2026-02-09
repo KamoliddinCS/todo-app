@@ -370,6 +370,18 @@ div.profile > a > img.avatar-img {
     margin-bottom: 20px;
 }
 
+.error {
+    opacity: 0.8;
+    border-radius: 13px;
+    background-color: #eb0000;
+    border: 2px solid #9e0303;
+    padding: 20px;
+    margin-bottom: 20px;
+    margin: 10px 0;
+    list-style: none;
+    font-size: 0.8rem;
+}
+
 .errors {
     margin: 10px 0;
     list-style: none;

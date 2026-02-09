@@ -24,6 +24,7 @@ app = Flask(__name__)
 app.secret_key = SECRET_KEY
 login_manager = LoginManager()
 login_manager.init_app(app)
+login_manager.login_view = "login"
 UPLOAD_FOLDER = os.path.join(app.root_path, "static", "avatars")
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
@@ -79,7 +80,9 @@ db.init_app(app)
 
 @app.route("/")
 def home():
-    return render_template("index.html", user=None, avatar=f"avatars/{current_user.avatar}")
+    if current_user.is_authenticated:
+        return render_template("index.html", avatar=f"avatars/{current_user.avatar}")
+    return render_template("index.html", avatar=f"avatars/default.png")
 
 
 # AUTHENTICATION LOGIC
@@ -90,47 +93,51 @@ def load_user(user_id):
 
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
-    form = RegistrationForm()
-    if form.validate_on_submit():
-        user = User(
-            username=form.username.data,
-            email=form.email.data,
-            password=form.password.data
-        )
-        db.session.add(user)
-        try:
-            db.session.commit()
-            login_user(user)
-        except IntegrityError:
-            db.session.rollback()
-            form.username.errors.append("Username or email already exists.")
-            form.email.errors.append("Username or email already exists.")
-        return redirect(url_for("home"))
-    return render_template("signup.html", form=form)
+    if not current_user.is_authenticated:
+        form = RegistrationForm()
+        if form.validate_on_submit():
+            user = User(
+                username=form.username.data,
+                email=form.email.data
+            )
+            user.set_password(form.password.data)
+            db.session.add(user)
+            try:
+                db.session.commit()
+                login_user(user)
+            except IntegrityError:
+                db.session.rollback()
+                form.username.errors.append("Username or email already exists.")
+                form.email.errors.append("Username or email already exists.")
+            return redirect(url_for("home"))
+        return render_template("signup.html", form=form)
+    return redirect(url_for("home"))
 
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    form = LoginForm()
-    if form.validate_on_submit():
-        identifier = form.identifier.data.strip()
-        stmt = select(User).where(or_(User.username == identifier, User.email == identifier))
-        user = db.session.execute(stmt).scalar_one_or_none()
+    if not current_user.is_authenticated:
+        form = LoginForm()
+        if form.validate_on_submit():
+            identifier = form.identifier.data.strip()
+            stmt = select(User).where(or_(User.username == identifier, User.email == identifier))
+            user = db.session.execute(stmt).scalar_one_or_none()
 
-        if user is None or not user.check_password(form.password.data):
-            flash("Invalid credentials.", "error")
-            return render_template("login.html", form=form), 401
+            if user is None or not user.check_password(form.password.data):
+                flash("Invalid credentials.", "error")
+                return render_template("login.html", form=form), 401
 
-        login_user(user, remember=form.remember_me.data)
+            login_user(user, remember=form.remember_me.data)
 
-        # redirect back to the page the user originally wanted, if safe
-        next_url = request.args.get("next")
-        if next_url and next_url.startswith("/"):
+            # redirect back to the page the user originally wanted, if safe
+            next_url = request.args.get("next")
+            if next_url and next_url.startswith("/"):
+                flash("Welcome back!")
+                return redirect(next_url)
             flash("Welcome back!")
-            return redirect(next_url)
-        flash("Welcome back!")
-        return redirect(url_for("index"))
-    return render_template("login.html", form=form)
+            return redirect(url_for("home"))
+        return render_template("login.html", form=form)
+    return redirect(url_for("home"))
 
 
 @app.route("/logout")

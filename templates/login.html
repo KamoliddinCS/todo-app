@@ -11,6 +11,16 @@
     <h1>Welcome Back</h1>
     <p>Please log in to your account</p>
 
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+        <div class="{{ category }}">
+            <li class="message">{{ message }}</li>
+        </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
     <form method="post">
       {{ form.csrf_token }}
       <div class="input-group">

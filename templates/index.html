@@ -30,7 +30,7 @@
     </div>
     <h1>📝 My Todos</h1>
 
-    {% if user != None %}
+    {% if current_user.is_authenticated %}
     <div class="todo-input">
       <input type="text" placeholder="Add a new task..." />
       <button>Add</button>
