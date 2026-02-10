@@ -10,7 +10,7 @@
 
 body {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  background: #010101;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -29,6 +29,19 @@ input {
 }
 
 input:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+}
+
+textarea:focus {
   outline: none;
   border-color: #667eea;
 }
@@ -224,6 +237,102 @@ input.remember-me-input {
   text-decoration: line-through;
   color: #999;
 }
+
+.add-tasks-prompt {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 30px;
+}
+
+.add-tasks-prompt h1, p {
+    color: grey;
+}
+
+.add-tasks-prompt button {
+    margin-top: 30px;
+    width: 15rem;
+}
+
+.add-tasks-image {
+    opacity: 0.4;
+    margin: 20px;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  z-index: 9999;
+}
+
+.modal.active {
+  display: block;
+}
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+  position: relative;
+  background: white;
+  max-width: 500px;
+  margin: 10vh auto;
+  padding: 1.5rem;
+  border-radius: 8px;
+  z-index: 10000;
+  overflow: auto;
+}
+
+.modal h1 {
+    margin-top: 20px;
+    color: #505050;
+}
+
+.modal-btn-group {
+    display: flex;
+    justify-content: end;
+    gap: 10px;
+}
+
+#closeModal {
+    width: 8rem;
+    background-color: #ef3131;
+}
+
+#closeModal:hover {
+    background-color: #da0808;
+}
+
+button.primary {
+    width: 8rem;
+    background-color: #3377e9;
+}
+
+button.primary:hover {
+    background-color: #075ead;
+}
+
+#openModal {
+    width: 8rem;
+    background-color: #3377e9;
+}
+
+
+.task-item {
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.task-actions {
+
+}
+
+
 
 .profile {
     display: flex;

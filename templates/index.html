@@ -5,6 +5,7 @@
   <title>Todo App</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://unpkg.com/htmx.org@1.9.12"></script>
 </head>
 <body>
   <div class="app">
@@ -17,49 +18,95 @@
         {% endfor %}
       {% endif %}
     {% endwith %}
+
     <div class="profile">
       <a href="profile"><img src="{{ url_for('static', filename=avatar) }}" alt="" class="avatar-img"></a>
       {% if not current_user.is_authenticated %}
       <div class="authentication-btns">
-          <a href="{{ url_for('login') }}" class="login-btn">Login</a>
+        <a href="{{ url_for('login') }}" class="login-btn">Login</a>
         <a href="{{ url_for('signup') }}" class="signup-btn">Sign up</a>
       </div>
       {% else %}
       @{{ current_user.username }}
       {% endif %}
     </div>
+
     <h1>📝 My Todos</h1>
 
     {% if current_user.is_authenticated %}
-    <div class="todo-input">
-      <input type="text" placeholder="Add a new task..." />
-      <button>Add</button>
-    </div>
 
-    <ul class="todo-list">
-      <li>
-        <label>
-          <input type="checkbox" />
-          <span>Finish homework</span>
-        </label>
-      </li>
-      <li>
-        <label>
-          <input type="checkbox" />
-          <span>Go for a walk</span>
-        </label>
-      </li>
-      <li class="completed">
-        <label>
-          <input type="checkbox" checked />
-          <span>Buy groceries</span>
-        </label>
-      </li>
-    </ul>
+      <!-- Your modal shell stays on the page; HTMX loads content into .modal-content -->
+      <form class="modal" id="modal" aria-hidden="true">
+        <div class="modal-backdrop"></div>
+
+        <!-- HTMX will swap modal inner HTML here -->
+        <div class="modal-content" id="modal-content"
+             aria-modal="true" aria-labelledby="modalTitle">
+          <!-- empty by default -->
+        </div>
+      </form>
+
+      {% if tasks and tasks|length > 0 %}
+        <ul class="todo-list" id="todo-list">
+          {% for task in tasks %}
+            {% include "tasks/_task_row.html" %}
+          {% endfor %}
+        </ul>
+      <!-- Add button (opens modal by fetching the form fragment) -->
+        <button id="openModal"
+                hx-get="{{ url_for('tasks_new') }}"
+                hx-target="#modal-content"
+                hx-swap="innerHTML">
+          Add a task
+        </button>
+
+      {% else %}
+        <div class="add-tasks-prompt">
+          <img src="{{ url_for('static', filename='images/no-tasks.png') }}" class="add-tasks-image" draggable="false"
+                style="user-select: none; -webkit-user-drag: none; -webkit-user-select: none;"
+                oncontextmenu="return false;">
+          <h1>No tasks yet.</h1>
+          <p class="add-tasks-prompt-text">Let's start tackling!</p>
+
+          <button
+            data-open-modal
+            hx-get="{{ url_for('tasks_new') }}"
+            hx-target="#modal-content"
+            hx-swap="innerHTML">
+            Add a task
+          </button>
+
+          <!-- keep an empty list so HTMX can insert into it immediately -->
+          <ul class="todo-list" id="todo-list"></ul>
+        </div>
+      {% endif %}
+
     {% else %}
-    <p>Please, sign up or log in to start adding tasks.</p>
+      <p>Please, sign up or log in to start adding tasks.</p>
     {% endif %}
 
+    <script src="{{ url_for('static', filename='index.js') }}"></script>
+
+    <!-- Minimal HTMX modal open/close hooks.
+         If your existing index.js already opens/closes the modal,
+         keep it—just add this close event integration. -->
+<!--    <script>-->
+<!--      // When HTMX loads modal content, open your modal using your existing JS-->
+<!--      document.body.addEventListener("htmx:afterSwap", function (evt) {-->
+<!--        if (evt.detail.target && evt.detail.target.id === "modal-content") {-->
+<!--          // your index.js probably toggles aria-hidden/class; trigger it here:-->
+<!--          const modal = document.getElementById("modal");-->
+<!--          modal.setAttribute("aria-hidden", "false");-->
+<!--        }-->
+<!--      });-->
+
+<!--      // Server will send HX-Trigger: closeModal after success-->
+<!--      document.body.addEventListener("closeModal", function () {-->
+<!--        const modal = document.getElementById("modal");-->
+<!--        modal.setAttribute("aria-hidden", "true");-->
+<!--        document.getElementById("modal-content").innerHTML = "";-->
+<!--      });-->
+<!--    </script>-->
   </div>
 </body>
 </html>

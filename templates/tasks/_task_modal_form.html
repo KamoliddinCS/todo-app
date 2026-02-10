@@ -1,0 +1,44 @@
+<h1 id="modalTitle">Add a task</h1>
+
+<form
+  hx-post="{{ action_url }}"
+  hx-target="{{ target }}"
+  hx-swap="{{ swap }}"
+>
+  {{ form.hidden_tag() }}
+
+  <div class="input-group">
+    {{ form.title.label }}
+    {{ form.title }}
+    {% for e in form.title.errors %}<div class="error">{{ e }}</div>{% endfor %}
+  </div>
+
+  <div class="input-group">
+    {{ form.description.label }}
+    {{ form.description }}
+    {% for e in form.description.errors %}<div class="error">{{ e }}</div>{% endfor %}
+  </div>
+
+  <div class="input-group">
+    {{ form.priority.label }}
+    {{ form.priority }}
+    {% for e in form.priority.errors %}<div class="error">{{ e }}</div>{% endfor %}
+  </div>
+
+  <div class="input-group">
+    {{ form.status.label }}
+    {{ form.status }}
+    {% for e in form.priority.errors %}<div class="error">{{ e }}</div>{% endfor %}
+  </div>
+
+  <div class="input-group">
+    {{ form.due_at.label }}
+    {{ form.due_at }}
+    {% for e in form.due_at.errors %}<div class="error">{{ e }}</div>{% endfor %}
+  </div>
+
+  <div class="modal-btn-group">
+    <button type="button" id="closeModal" data-close-modal>Cancel</button>
+    <button class="primary" type="submit">{{ submit_label }}</button>
+  </div>
+</form>

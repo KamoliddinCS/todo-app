@@ -1,5 +1,7 @@
-from main import app, db
-import models
+from sqlalchemy.orm import DeclarativeBase
+from flask_sqlalchemy import SQLAlchemy
 
-with app.app_context():
-    db.create_all()
+class Base(DeclarativeBase):
+    pass
+
+db = SQLAlchemy(model_class=Base)
