@@ -10,103 +10,88 @@
 <body>
   <div class="app">
     {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-        {% for category, message in messages %}
-        <div class="{{ category }}">
-            <li class="message">{{ message }}</li>
-        </div>
-        {% endfor %}
-      {% endif %}
-    {% endwith %}
-
-    <div class="profile">
-      <a href="profile"><img src="{{ url_for('static', filename=avatar) }}" alt="" class="avatar-img"></a>
-      {% if not current_user.is_authenticated %}
-      <div class="authentication-btns">
-        <a href="{{ url_for('login') }}" class="login-btn">Login</a>
-        <a href="{{ url_for('signup') }}" class="signup-btn">Sign up</a>
+        {% if messages %}</div>
+          {% for category, message in messages %}
+          <div class="{{ category }}">
+              <li class="message">{{ message }}</li>
+          </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+    <div class="header">
+      <h1 class="brand-name">Tackle✅</h1>
+      <div class="profile">
+        <a href="profile" class="profile-link">
+          {% if not current_user.is_authenticated %}
+          <div class="authentication-btns">
+            <a href="{{ url_for('login') }}" class="login-btn">Login</a>
+            <a href="{{ url_for('signup') }}" class="signup-btn">Sign up</a>
+          </div>
+          {% else %}
+          @{{ current_user.username }}
+          {% endif %}
+          <img src="{{ url_for('static', filename=avatar) }}" alt="" class="avatar-img">
+        </a>
       </div>
-      {% else %}
-      @{{ current_user.username }}
-      {% endif %}
     </div>
 
-    <h1>📝 My Todos</h1>
+    <div class="main-container">
+      <h1>📝 My Todos</h1>
 
-    {% if current_user.is_authenticated %}
+      {% if current_user.is_authenticated %}
 
-      <!-- Your modal shell stays on the page; HTMX loads content into .modal-content -->
-      <form class="modal" id="modal" aria-hidden="true">
-        <div class="modal-backdrop"></div>
+        <!-- Your modal shell stays on the page; HTMX loads content into .modal-content -->
+        <form class="modal" id="modal" aria-hidden="true">
+          <div class="modal-backdrop"></div>
 
-        <!-- HTMX will swap modal inner HTML here -->
-        <div class="modal-content" id="modal-content"
-             aria-modal="true" aria-labelledby="modalTitle">
-          <!-- empty by default -->
-        </div>
-      </form>
+          <!-- HTMX will swap modal inner HTML here -->
+          <div class="modal-content" id="modal-content"
+               aria-modal="true" aria-labelledby="modalTitle">
+            <!-- empty by default -->
+          </div>
+        </form>
 
-      {% if tasks and tasks|length > 0 %}
-        <ul class="todo-list" id="todo-list">
-          {% for task in tasks %}
-            {% include "tasks/_task_row.html" %}
-          {% endfor %}
-        </ul>
-      <!-- Add button (opens modal by fetching the form fragment) -->
-        <button id="openModal"
-                hx-get="{{ url_for('tasks_new') }}"
-                hx-target="#modal-content"
-                hx-swap="innerHTML">
-          Add a task
-        </button>
-
-      {% else %}
-        <div class="add-tasks-prompt">
-          <img src="{{ url_for('static', filename='images/no-tasks.png') }}" class="add-tasks-image" draggable="false"
-                style="user-select: none; -webkit-user-drag: none; -webkit-user-select: none;"
-                oncontextmenu="return false;">
-          <h1>No tasks yet.</h1>
-          <p class="add-tasks-prompt-text">Let's start tackling!</p>
-
-          <button
-            data-open-modal
-            hx-get="{{ url_for('tasks_new') }}"
-            hx-target="#modal-content"
-            hx-swap="innerHTML">
+        {% if tasks and tasks|length > 0 %}
+          <ul class="todo-list" id="todo-list">
+            {% for task in tasks %}
+              {% include "tasks/_task_row.html" %}
+            {% endfor %}
+          </ul>
+        <!-- Add button (opens modal by fetching the form fragment) -->
+          <button id="openModal"
+                  hx-get="{{ url_for('tasks_new') }}"
+                  hx-target="#modal-content"
+                  hx-swap="innerHTML">
             Add a task
           </button>
 
-          <!-- keep an empty list so HTMX can insert into it immediately -->
-          <ul class="todo-list" id="todo-list"></ul>
-        </div>
-      {% endif %}
+        {% else %}
+          <div class="add-tasks-prompt">
+            <img src="{{ url_for('static', filename='images/no-tasks.png') }}" class="add-tasks-image" draggable="false"
+                  style="user-select: none; -webkit-user-drag: none; -webkit-user-select: none;"
+                  oncontextmenu="return false;">
+            <h1>No tasks yet.</h1>
+            <p class="add-tasks-prompt-text">Let's start tackling!</p>
 
-    {% else %}
-      <p>Please, sign up or log in to start adding tasks.</p>
-    {% endif %}
+            <button
+              data-open-modal
+              hx-get="{{ url_for('tasks_new') }}"
+              hx-target="#modal-content"
+              hx-swap="innerHTML">
+              Add a task
+            </button>
+
+            <!-- keep an empty list so HTMX can insert into it immediately -->
+            <ul class="todo-list" id="todo-list"></ul>
+          </div>
+        {% endif %}
+
+      {% else %}
+        <p>Please, sign up or log in to start adding tasks.</p>
+      {% endif %}
+    </div>
 
     <script src="{{ url_for('static', filename='index.js') }}"></script>
-
-    <!-- Minimal HTMX modal open/close hooks.
-         If your existing index.js already opens/closes the modal,
-         keep it—just add this close event integration. -->
-<!--    <script>-->
-<!--      // When HTMX loads modal content, open your modal using your existing JS-->
-<!--      document.body.addEventListener("htmx:afterSwap", function (evt) {-->
-<!--        if (evt.detail.target && evt.detail.target.id === "modal-content") {-->
-<!--          // your index.js probably toggles aria-hidden/class; trigger it here:-->
-<!--          const modal = document.getElementById("modal");-->
-<!--          modal.setAttribute("aria-hidden", "false");-->
-<!--        }-->
-<!--      });-->
-
-<!--      // Server will send HX-Trigger: closeModal after success-->
-<!--      document.body.addEventListener("closeModal", function () {-->
-<!--        const modal = document.getElementById("modal");-->
-<!--        modal.setAttribute("aria-hidden", "true");-->
-<!--        document.getElementById("modal-content").innerHTML = "";-->
-<!--      });-->
-<!--    </script>-->
   </div>
 </body>
 </html>

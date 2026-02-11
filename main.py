@@ -61,7 +61,7 @@ class RegistrationForm(FlaskForm):
 
 
 class AvatarForm(FlaskForm):
-    avatar = FileField("✏️", validators=[FileRequired()])
+    avatar = FileField("Change avatar", validators=[FileRequired()])
 
 
 class TaskForm(FlaskForm):

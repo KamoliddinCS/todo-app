@@ -1,14 +1,14 @@
 <li id="task-{{ task.id }}" class="task-item">
-  <label>
-    <input type="checkbox"
-           {% if task.status == "done" %}checked{% endif %}
-          hx-trigger="change"
-          hx-target="#task-{{ task.id }}"
-          hx-post="{{ url_for('update_task_status', task_id=task.id, current_status=task.status) }}"
-          hx-swap="outerHTML"
-    />
-    <span>{{ task.title }} ({{ task.status }})</span>
-  </label>
+    <div class="task-info">
+        <input type="checkbox"
+               {% if task.status == "done" %}checked{% endif %}
+              hx-trigger="change"
+              hx-target="#task-{{ task.id }}"
+              hx-post="{{ url_for('update_task_status', task_id=task.id, current_status=task.status) }}"
+              hx-swap="outerHTML"
+        />
+        <span class="task-title">{{ task.title }} <span class="status-tag {{ task.status }}-tag"><span class="status-tag-text">{{ task.status.upper() }}</span></span></span>
+    </div>
 
   <div class="task-actions">
     <button class="edit-btn"
