@@ -89,11 +89,3 @@ document.body.addEventListener('htmx:afterSwap', (e) => {
  * Flask can respond with header: HX-Trigger: closeModal
  */
 document.body.addEventListener('closeModal', closeModal);
-//
-//let statusTag = document.getElementsByClassName("status-tag");
-//
-//for (let status of statusTag) {
-//    status.classList.add(`${status.textContent.toLowerCase()}-tag`);
-//}
-
-

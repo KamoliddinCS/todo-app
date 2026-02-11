@@ -9,15 +9,6 @@
 </head>
 <body>
   <div class="app">
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}</div>
-          {% for category, message in messages %}
-          <div class="{{ category }}">
-              <li class="message">{{ message }}</li>
-          </div>
-          {% endfor %}
-        {% endif %}
-      {% endwith %}
     <div class="header">
       <h1 class="brand-name">Tackle✅</h1>
       <div class="profile">
@@ -29,11 +20,24 @@
           </div>
           {% else %}
           @{{ current_user.username }}
-          {% endif %}
           <img src="{{ url_for('static', filename=avatar) }}" alt="" class="avatar-img">
+          {% endif %}
         </a>
       </div>
     </div>
+
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <div class="messages">
+            {% for category, message in messages %}
+            <div class="{{ category }}">
+                <li class="message">{{ message }}</li>
+            </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+
 
     <div class="main-container">
       <h1>📝 My Todos</h1>
@@ -90,8 +94,8 @@
         <p>Please, sign up or log in to start adding tasks.</p>
       {% endif %}
     </div>
-
-    <script src="{{ url_for('static', filename='index.js') }}"></script>
   </div>
+
+  <script src="{{ url_for('static', filename='index.js') }}"></script>
 </body>
 </html>

@@ -7,7 +7,8 @@
               hx-post="{{ url_for('update_task_status', task_id=task.id, current_status=task.status) }}"
               hx-swap="outerHTML"
         />
-        <span class="task-title">{{ task.title }} <span class="status-tag {{ task.status }}-tag"><span class="status-tag-text">{{ task.status.upper() }}</span></span></span>
+        <span class="task-title">{{ task.title }} </span>
+        <span class="status-tag {{ task.status }}-tag"><span class="status-tag-text">{{ task.status.upper() }}</span></span>
     </div>
 
   <div class="task-actions">

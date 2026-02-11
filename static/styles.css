@@ -77,8 +77,8 @@ button:hover {
 .signup-btn {
   border: none;
   border-radius: 5px;
-  background: #667eea;
-  color: white;
+  background: #feb034;
+  color: #010101;
   font-size: 16px;
   cursor: pointer;
   padding: 10px 20px;
@@ -87,7 +87,7 @@ button:hover {
 }
 
 .signup-btn:hover {
-    background-color: #7f52cd;
+    background-color: #c79108;
 }
 
 .brand-name {
@@ -271,7 +271,7 @@ input.remember-me-input {
   position: fixed;
   inset: 0;
   display: none;
-  z-index: 9999;
+  z-index: 10000;
 }
 
 .modal.active {
@@ -291,7 +291,7 @@ input.remember-me-input {
   margin: 10vh auto;
   padding: 1.5rem;
   border-radius: 8px;
-  z-index: 10000;
+  z-index: 10001;
   overflow: auto;
 }
 
@@ -355,15 +355,7 @@ button.primary:hover {
     background-color: #0404;
     font-size: 0.7rem;
     font-weight: 600;
-}
-
-.status-tag-text::before {
-    content: "•";
-    display: inline-block;
-    margin-right: 2px;
-    font-size: 1.5rem;
-    position: relative;
-    top: 2px;
+    margin-left: 5px;
 }
 
 .done-tag {
@@ -477,7 +469,6 @@ div.profile > a > img.avatar-img {
     display: flex;
     gap: 12px;
     justify-content: end;
-    margin-top: 40px;
 }
 
 /* Secondary button */
@@ -539,6 +530,7 @@ div.profile > a > img.avatar-img {
     border: 2px solid #079507;
     padding: 20px;
     margin-bottom: 20px;
+    margin-top: 10px;
     width: 100%;
 }
 
@@ -593,11 +585,19 @@ input {
 /* =====================
    Tablet & Small Desktop
 ===================== */
-@media (min-width: 600px) {
+@media (max-width: 1200px) {
   .login-card,
   .app,
   .profile-card {
     padding: 28px;
+  }
+
+  .header {
+    width: 80%;
+  }
+
+  .main-container {
+    width: 80%;
   }
 
   h1 {
@@ -608,7 +608,7 @@ input {
 /* =====================
    Small Phones
 ===================== */
-@media (max-width: 400px) {
+@media (max-width: 600px) {
   body {
 
   }
@@ -618,6 +618,30 @@ input {
   .profile-card {
     padding: 18px;
     border-radius: 14px;
+  }
+
+  .header, .main-container {
+    width: 100%;
+  }
+
+  .task-info {
+    width: 70%;
+  }
+
+  .avatar-link {
+    font-size: 0.8rem;
+  }
+
+  .profile-card {
+    width: 100%;
+  }
+
+  .profile-actions {
+    justify-content: space-between;
+  }
+
+  .profile-actions a.login-btn {
+    margin: auto 0;
   }
 
   h1 {
@@ -642,16 +666,16 @@ input {
     border-radius: 16px;
   }
 
+  .profile-actions {
+    padding-bottom: 30px;
+  }
+
   .profile-header h1 {
     font-size: 20px;
   }
 
-  .profile-actions {
-    flex-direction: column;
-  }
-
-  .profile-actions button {
-    width: 100%;
+  .edit-btn, .delete-btn {
+    padding: 8px;
   }
 }
 

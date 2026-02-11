@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>My Profile</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
 </head>
 <body>
@@ -53,13 +54,6 @@
         <h1>{{ current_user.username }}</h1>
         <p>{{ current_user.email }}</p>
       </div>
-
-<!--      <div class="profile-info">-->
-<!--        <div class="info-row">-->
-<!--          <span class="label">Username</span>-->
-<!--          <span class="value">{{ current_user.username }}</span>-->
-<!--        </div>-->
-<!--      </div>-->
 
       <div class="profile-actions">
         <button form="form" type="submit" id="submit">Edit Profile</button>
