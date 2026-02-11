@@ -8,3 +8,5 @@ ehthumbs.db
 Thumbs.db
 .DS_Store
 instance
+static
+migrations
